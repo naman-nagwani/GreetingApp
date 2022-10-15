@@ -13,4 +13,6 @@ public interface IGreetingService {
     Greeting getGreetingMsgById(long id);
 
     List<Greeting> getAllGreetingMsg();
+
+    Greeting editGreetingMsgById(long id, String firstName, String lastName);
 }
