@@ -120,4 +120,11 @@ public class GreetingController {
     public List<Greeting> listAllGreeting(){
         return greetingService.getAllGreetingMsg();
     }
+
+    @PutMapping("/greeting/edit/{id}")
+    public Greeting editGreetingMsgById(@PathVariable("id") long id,
+            @RequestParam(name = "firstName", defaultValue = "Hello") String firstName,
+            @RequestParam(name = "lastName", defaultValue = "World") String lastName){
+        return greetingService.editGreetingMsgById(id,firstName,lastName);
+    }
 }
