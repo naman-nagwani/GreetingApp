@@ -2,8 +2,10 @@ package com.bridgelabz.greetingapp.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.bridgelabz.greetingapp.Greeting;
+import com.bridgelabz.greetingapp.model.Greeting;
+import com.bridgelabz.greetingapp.model.User;
 import com.bridgelabz.greetingapp.services.GreetingService;
+import com.bridgelabz.greetingapp.services.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ public class GreetingController {
     private final AtomicLong counter = new AtomicLong();
 
     @Autowired
-    private GreetingService greetingService;
+    private IGreetingService greetingService;
 
     /**
      * Purpose : Ability to return JSON data using GET method
@@ -76,11 +78,34 @@ public class GreetingController {
 
     @GetMapping(value = "/getMessage")
     public ResponseEntity<String> getMessage() {
-        return new ResponseEntity<>(greetingService.getMessage(), HttpStatus.OK);
+        return new ResponseEntity<>(greetingService.getGreetingMessage(), HttpStatus.OK);
     }
 
     /**
      * Execution URL : http://localhost:8080/getMessage
      */
 
+
+    /*@GetMapping(value = "/getGreetingMessage")
+    public ResponseEntity<String> greeting(@RequestParam(value = "fname", defaultValue = "World") String fname,
+                                           @RequestParam(value = "lname", defaultValue = "") String lname) {
+        return new ResponseEntity<>(greetingService.getGreeting(fname, lname), HttpStatus.OK);
+    }*/
+
+    @GetMapping("/greeting")
+    public String getGreeting(@RequestParam(name = "firstName", defaultValue = "Hello") String firstName,
+                           @RequestParam(name = "lastName", defaultValue = "World") String lastName){
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        return greetingService.getGreetingMessage(user);
+    }
+    @PostMapping("/greeting")
+    public Greeting addGreeting(@RequestParam(name = "firstName", defaultValue = "Hello") String firstName,
+                                @RequestParam(name = "lastName", defaultValue = "World") String lastName){
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        return greetingService.addGreetingMessage(user);
+    }
 }
