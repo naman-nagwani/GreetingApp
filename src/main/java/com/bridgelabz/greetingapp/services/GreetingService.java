@@ -52,9 +52,19 @@ public class GreetingService implements IGreetingService{
     public Greeting editGreetingMsgById(long id, String firstName, String lastName) {
         Optional<Greeting> greeting = greetingRepository.findById(id);
         if (greeting.isPresent())
-            return greetingRepository.save(new Greeting(id,firstName+" "+lastName+"!"));
+            return greetingRepository.save(new Greeting(id,"Hello, "+firstName+" "+lastName+"!"));
 
         return null;
+    }
+
+    @Override
+    public String deleteGreetingById(long id) {
+        Optional<Greeting> greeting = greetingRepository.findById(id);
+        if (greeting.isPresent()) {
+            greetingRepository.deleteById(id);
+            return "Success";
+        }
+        return "Failed";
     }
 
     public String getGreeting(String fname, String lname) {
