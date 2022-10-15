@@ -108,4 +108,10 @@ public class GreetingController {
         user.setLastName(lastName);
         return greetingService.addGreetingMessage(user);
     }
+
+
+    @GetMapping("/greeting/{id}")
+    public Greeting getGreetingMsgById(@PathVariable("id") long id){
+        return greetingService.getGreetingMsgById(id);
+    }
 }
