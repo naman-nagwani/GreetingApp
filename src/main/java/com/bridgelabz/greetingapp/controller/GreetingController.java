@@ -1,5 +1,6 @@
 package com.bridgelabz.greetingapp.controller;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.bridgelabz.greetingapp.model.Greeting;
@@ -113,5 +114,10 @@ public class GreetingController {
     @GetMapping("/greeting/{id}")
     public Greeting getGreetingMsgById(@PathVariable("id") long id){
         return greetingService.getGreetingMsgById(id);
+    }
+
+    @GetMapping("/greeting/listAll")
+    public List<Greeting> listAllGreeting(){
+        return greetingService.getAllGreetingMsg();
     }
 }
